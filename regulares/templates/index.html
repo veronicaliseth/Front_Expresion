@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Expresiones regulares</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+        integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
+    <style>
+        html,
+        body {
+            min-height: 100%;
+            padding: 0;
+            margin: 0;
+            font-family: Roboto, Arial, sans-serif;
+            font-size: 14px;
+            color: #666;
+        }
+
+        h1 {
+            margin: 0 0 20px;
+            font-weight: 400;
+            color: white;
+        }
+
+        p {
+            color: white;
+            font-size: x-large;
+            font-weight: 600;
+            margin: 0 0 5px;
+        }
+
+        .main-block {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #b980ff;
+        }
+
+        form {
+            padding: 25px;
+            margin: 25px;
+            border-radius: 20px;
+            background: linear-gradient(145deg, #a773e6, #c689ff);
+            box-shadow:  48px 48px 94px #aa76eb,
+             -48px -48px 94px #c88aff;
+        }
+
+        .fas {
+            margin: 25px 10px 0;
+            font-size: 72px;
+            color: #fff;
+        }
+
+        .fa-envelope {
+            transform: rotate(-20deg);
+        }
+
+        .fa-at,
+        .fa-mail-bulk {
+            transform: rotate(10deg);
+        }
+
+        select,
+        textarea {
+            width: calc(100% - 5px);
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #1c87c9;
+            outline: none;
+        }
+
+        input,
+        textarea {
+            width: calc(100% - 18px);
+            padding: 8px;
+            margin-bottom: 20px;
+            border: 1px solid #1c87c9;
+            outline: none;
+        }
+
+        input::placeholder {
+            color: #666;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: #5154a9;
+            font-size: 16px;
+            font-weight: 400;
+            color: #fff;
+        }
+
+        button:hover {
+            background: #676bdd;
+        }
+
+        @media (min-width: 568px) {
+            .main-block {
+                flex-direction: row;
+            }
+
+            .left-part,
+            form {
+                width: 50%;
+            }
+
+            .fa-envelope {
+                margin-top: 0;
+                margin-left: 20%;
+            }
+
+            .fa-at {
+                margin-top: -10%;
+                margin-left: 65%;
+            }
+
+            .fa-mail-bulk {
+                margin-top: 2%;
+                margin-left: 28%;
+            }
+        }
+
+        /* Aqui inicia la tabla */
+        table {
+            table-layout: fixed;
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            font-size: 12px;
+            width: 250px;
+            color: #080808;
+        }
+
+        td,
+        th {
+            border: 1px solid #464646;
+            text-align: center;
+            padding: 2px;
+            width: 100px;
+            word-wrap: break-word;
+        }
+
+        tr:nth-child(even) {
+            background-color: #adb9ff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-block">
+        <form method="get" onsubmit="limpiar_campos()">
+            <h1>Expresiones Regulares</h1>
+            <div class="info">
+                <input type="text" name="busqueda", placeholder="Ingrese el dato correspondiente">
+                <select name="filtro">
+                    <option value="Clave_cliente">Clave cliente</option>
+                    <option value="Nombre_Contacto">Nombre contacto</option>
+                    <option value="Correo">Correo</option>
+                    <option value="Telefono">Teléfono</option>
+                </select>
+                <button type="submit">Buscar</button>
+        </form>
+    </div>
+    {% if coincidencias %}
+        <div class="left-part">
+            <table>
+                <tr>
+                    <th>Clave cliente</th>
+                    <th>Nombre contacto</th>
+                    <th>Correo</th>
+                    <th>Telefono</th>
+                </tr>
+                {% for contacto in coincidencias %}
+                <tr>
+                    <td>{{ contacto.Clave_cliente }}</td>
+                    <td>{{ contacto.Nombre_Contacto }}</td>
+                    <td>{{ contacto.Correo }}</td>
+                    <td>{{ contacto.Telefono }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    {% else %}
+        <p>No hay coincidencias</p>
+    {% endif %}
+</body>
+
+</html>
+
+<script>
+    function limpiar_campos() {
+        document.getElementById("Clave_cliente").value = "";
+        document.getElementById("Nombre_Contacto").value = "";
+        document.getElementById("Correo").value = "";
+        document.getElementById("Telefono").value = "";
+    }
+</script>
